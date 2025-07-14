@@ -1,6 +1,6 @@
 # Serverless URL Shortener
 
-A fully serverless, scalable, and cost-efficient URL shortener built using AWS Lambda, API Gateway, and DynamoDB — all deployed via Terraform. It allows users to generate shortened URLs and redirect them, just like Bit.ly, while leveraging the performance and affordability of AWS's serverless ecosystem.
+A fully serverless, scalable, and cost-efficient URL shortener built using AWS Lambda, API Gateway, and DynamoDB — all deployed via Terraform. It allows users to generate shortened URLs and redirect them,  while leveraging the performance and affordability of AWS's serverless ecosystem.
 
 ---
 
