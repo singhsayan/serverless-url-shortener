@@ -65,17 +65,17 @@ Type `yes` when prompted to confirm infrastructure provisioning.
 
 #### Terraform Init Screenshot
 
-![Terraform Init](screenshots/terraform-init.png)
+<img src="screenshots/terraform-init.png" alt="Terraform Init" width="500">
 
 #### Terraform Apply Screenshots
 
-![Terraform Apply](screenshots/terraform-apply1.png)  
-![Terraform Apply](screenshots/terraform-apply2.png)  
-![Terraform Apply](screenshots/terraform-apply3.png)  
-![Terraform Apply](screenshots/terraform-apply4.png)  
-![Terraform Apply](screenshots/terraform-apply5.png)  
-![Terraform Apply](screenshots/terraform-apply6.png)  
-![Terraform Apply](screenshots/terraform-apply7.png)
+<img src="screenshots/terraform-apply1.png" alt="Terraform Apply 1" width="500">  
+<img src="screenshots/terraform-apply2.png" alt="Terraform Apply 2" width="500">  
+<img src="screenshots/terraform-apply3.png" alt="Terraform Apply 3" width="500">  
+<img src="screenshots/terraform-apply4.png" alt="Terraform Apply 4" width="500">  
+<img src="screenshots/terraform-apply5.png" alt="Terraform Apply 5" width="500">  
+<img src="screenshots/terraform-apply6.png" alt="Terraform Apply 6" width="500">  
+<img src="screenshots/terraform-apply7.png" alt="Terraform Apply 7" width="500">
 
 ---
 
@@ -86,24 +86,6 @@ After deployment, Terraform will output an API Gateway endpoint:
 ```
 api_endpoint = "https://<your-id>.execute-api.us-east-1.amazonaws.com"
 ```
-
----
-
-## API Routes
-
-The application exposes the following HTTP API routes via Amazon API Gateway:
-
-| Method | Route        | Description                         |
-|--------|--------------|-------------------------------------|
-| POST   | /shorten     | Accepts a long URL and returns a shortened slug. |
-| GET    | /{slug}      | Redirects the user to the original long URL.     |
-
-#### API Gateway Console Screenshot
-
-Below is a screenshot of the deployed routes as seen in the AWS API Gateway console:
-
-![API Gateway Routes](screenshots/api-routes.png)
-
 
 ### Shorten a URL
 
@@ -130,7 +112,24 @@ Or open the shortened URL in a web browser.
 
 #### Browser Redirect Screenshot
 
-![Browser Redirect](screenshots/browser-redirect.png)
+<img src="screenshots/browser-redirect.png" alt="Browser Redirect" width="500">
+
+---
+
+## API Routes
+
+The application exposes the following HTTP API routes via Amazon API Gateway:
+
+| Method | Route        | Description                                      |
+|--------|--------------|--------------------------------------------------|
+| POST   | /shorten     | Accepts a long URL and returns a shortened slug. |
+| GET    | /{slug}      | Redirects the user to the original long URL.     |
+
+#### API Gateway Console Screenshot
+
+Below is a screenshot of the deployed routes as seen in the AWS API Gateway console:
+
+<img src="screenshots/api-routes.png" alt="API Gateway Routes" width="500">
 
 ---
 
@@ -143,7 +142,7 @@ Or open the shortened URL in a web browser.
 
 #### Lambda Console Screenshot
 
-![Lambda Functions](screenshots/lambda-functions.png)
+<img src="screenshots/lambda-functions.png" alt="Lambda Functions" width="500">
 
 ---
 
@@ -153,7 +152,7 @@ Stores mappings of slugs to original URLs. The table uses on-demand billing for 
 
 #### DynamoDB Screenshot
 
-![DynamoDB Table](screenshots/dynamoDB-table.png)
+<img src="screenshots/dynamoDB-table.png" alt="DynamoDB Table" width="500">
 
 ---
 
