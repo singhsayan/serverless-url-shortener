@@ -1,20 +1,20 @@
 # Serverless URL Shortener
 
-A fully serverless, scalable, and cost-efficient URL shortener built using AWS Lambda, API Gateway, and DynamoDB — all deployed via Terraform. It allows users to generate shortened URLs and redirect them,  while leveraging the performance and affordability of AWS's serverless ecosystem.
+A fully serverless, scalable, and cost-efficient URL shortener built using AWS Lambda, API Gateway, and DynamoDB — deployed via Terraform. The system allows users to generate and access shortened URLs, leveraging the performance and affordability of AWS's serverless ecosystem.
 
 ---
 
 ## Features
 
-- **Serverless Architecture**: Built using AWS Lambda and API Gateway for automatic scaling and zero-server management.
-- **DynamoDB Storage**: Fast, reliable, and cost-effective NoSQL storage to store original URLs and their shortened slugs.
+- **Serverless Architecture**: Utilizes AWS Lambda and API Gateway for seamless scaling and zero server maintenance.
+- **DynamoDB Storage**: Fast, reliable, and cost-effective NoSQL database for storing original URLs and their shortened slugs.
 - **Two Lambda Endpoints**:
-  - `POST /shorten` – Accepts a URL and returns a shortened slug.
-  - `GET /{slug}` – Redirects to the original URL.
-- **On-Demand Billing**: Pay-per-request DynamoDB and Lambda ensure minimal operating costs (under AWS free tier for low traffic).
-- **IAM Least Privilege**: Role-based access with Terraform-managed permissions.
-- **Infrastructure as Code**: Entire deployment is reproducible using Terraform.
-- **Clean Teardown**: All resources can be destroyed with a single command.
+  - `POST /shorten`: Accepts a URL and returns a shortened slug.
+  - `GET /{slug}`: Redirects the user to the original URL.
+- **On-Demand Billing**: Uses pay-per-request DynamoDB and Lambda, minimizing costs and often staying within the AWS free tier.
+- **IAM Least Privilege**: Uses Terraform-managed roles and policies to follow the principle of least privilege.
+- **Infrastructure as Code**: Fully reproducible and version-controlled deployment using Terraform.
+- **Clean Teardown**: All infrastructure can be destroyed using a single Terraform command.
 
 ---
 
@@ -24,101 +24,127 @@ A fully serverless, scalable, and cost-efficient URL shortener built using AWS L
 |----------------|----------------------------------|
 | Cloud Provider | AWS                              |
 | Compute        | AWS Lambda                       |
-| API Management | Amazon API Gateway (HTTP API v2) |
+| API Gateway    | Amazon API Gateway (HTTP API v2) |
 | Database       | Amazon DynamoDB                  |
-| IaC            | Terraform                        |
-| Language       | Python (Boto3)                   |
+| Infrastructure | Terraform                        |
+| Language       | Python (with Boto3)              |
 
 ---
 
-## Setup & Deployment
----
+## Setup and Deployment
+
 ### 1. Prerequisites
 
-- AWS CLI configured (`aws configure`)
+- AWS CLI installed and configured (`aws configure`)
 - Terraform installed
 - Python 3.x installed
 
----
-
 ### 2. Configure AWS Credentials
 
-- aws configure
-# Enter your AWS Access Key ID, Secret, and Region
-
----
+```bash
+aws configure
+# Provide AWS Access Key ID, Secret Access Key, Region
+```
 
 ### 3. Package Lambda Functions
-- cd scripts
-- bash deploy.sh
 
----
+```bash
+cd scripts
+bash deploy.sh
+```
 
 ### 4. Deploy the Infrastructure
-- cd terraform
-- terraform init
-- terraform apply
 
-When prompted, type yes to provision the infrastructure.
+```bash
+cd terraform
+terraform init
+terraform apply
+```
 
-Terraform Init:
+Type `yes` when prompted to confirm infrastructure provisioning.
+
+#### Terraform Init Screenshot
+
 ![Terraform Init](screenshots/terraform-init.png)
 
-Terraform Apply Screenshots:
+#### Terraform Apply Screenshots
 
-![Terraform Apply](screenshots/terraform-apply1.png)
-![Terraform Apply](screenshots/terraform-apply2.png)
-![Terraform Apply](screenshots/terraform-apply3.png)
-![Terraform Apply](screenshots/terraform-apply4.png)
-![Terraform Apply](screenshots/terraform-apply5.png)
-![Terraform Apply](screenshots/terraform-apply6.png)
+![Terraform Apply](screenshots/terraform-apply1.png)  
+![Terraform Apply](screenshots/terraform-apply2.png)  
+![Terraform Apply](screenshots/terraform-apply3.png)  
+![Terraform Apply](screenshots/terraform-apply4.png)  
+![Terraform Apply](screenshots/terraform-apply5.png)  
+![Terraform Apply](screenshots/terraform-apply6.png)  
 ![Terraform Apply](screenshots/terraform-apply7.png)
 
 ---
 
-### API Endpoints
-After deployment, Terraform will output your API Gateway endpoint like:
+## API Endpoints
 
+After deployment, Terraform will output an API Gateway endpoint:
+
+```
 api_endpoint = "https://<your-id>.execute-api.us-east-1.amazonaws.com"
+```
 
-### How to Use
+### Shorten a URL
 
-## 1. Shorten a URL
+```bash
 curl -X POST https://<api_id>.execute-api.<region>.amazonaws.com/shorten \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com"}'
+```
 
-Response:
+**Response:**
+```json
 {
   "short_url": "https://<api_id>.execute-api.<region>.amazonaws.com/a1b2c3"
 }
+```
 
-## 2. Redirect to Original URL
- curl -v https://<api_id>.execute-api.<region>.amazonaws.com/a1b2c3
+### Redirect to Original URL
 
-Or open the link in your browser.
+```bash
+curl -v https://<api_id>.execute-api.<region>.amazonaws.com/a1b2c3
+```
 
-![Browswer Redirect](screenshots/browser-redirect.png)
+Or open the shortened URL in a web browser.
 
-### AWS Resources
+#### Browser Redirect Screenshot
 
-## Lambda Functions
-shorten_url.py: Generates short slugs and writes to DynamoDB.
+![Browser Redirect](screenshots/browser-redirect.png)
 
-redirect_url.py: Looks up original URL by slug and redirects.
+---
+
+## AWS Resources
+
+### Lambda Functions
+
+- `shorten_url.py`: Generates short slugs and writes the mapping to DynamoDB.
+- `redirect_url.py`: Retrieves the original URL from DynamoDB and returns a redirect response.
+
+#### Lambda Console Screenshot
 
 ![Lambda Functions](screenshots/lambda-functions.png)
 
+---
 
 ### DynamoDB Table
-Stores mappings between slugs and original URLs.
+
+Stores mappings of slugs to original URLs. The table uses on-demand billing for cost efficiency.
+
+#### DynamoDB Screenshot
 
 ![DynamoDB Table](screenshots/dynamoDB-table.png)
 
-### Teardown
-To destroy all resources:
+---
 
+## Teardown
+
+To delete all infrastructure:
+
+```bash
 terraform destroy
+```
 
-Type yes to confirm.
-
+Type `yes` when prompted to confirm.
