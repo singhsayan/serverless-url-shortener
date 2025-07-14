@@ -87,6 +87,24 @@ After deployment, Terraform will output an API Gateway endpoint:
 api_endpoint = "https://<your-id>.execute-api.us-east-1.amazonaws.com"
 ```
 
+---
+
+## API Routes
+
+The application exposes the following HTTP API routes via Amazon API Gateway:
+
+| Method | Route        | Description                         |
+|--------|--------------|-------------------------------------|
+| POST   | /shorten     | Accepts a long URL and returns a shortened slug. |
+| GET    | /{slug}      | Redirects the user to the original long URL.     |
+
+#### API Gateway Console Screenshot
+
+Below is a screenshot of the deployed routes as seen in the AWS API Gateway console:
+
+![API Gateway Routes](screenshots/api-routes.png)
+
+
 ### Shorten a URL
 
 ```bash
